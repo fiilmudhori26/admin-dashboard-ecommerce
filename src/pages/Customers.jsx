@@ -64,7 +64,7 @@ export default function Customers() {
 
       <DataTable
         columns={columns}
-        data={pageData}
+        data={pageData ?? []}
         onSort={handleSort}
         onFilter={setFilter}
         onSearch={setSearch}

@@ -9,7 +9,7 @@ export default function Layout({ children }) {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <Sidebar activePath={activePath} onNavigate={setActivePath} open={sidebarOpen} />
+      <Sidebar activePath={activePath} onNavigate={setActivePath} isOpen={sidebarOpen} />
 
       {sidebarOpen && (
         <div
@@ -20,7 +20,10 @@ export default function Layout({ children }) {
       )}
 
       <main className="flex-1 flex flex-col overflow-hidden lg:pl-64 relative">
-        <Header onMenuToggle={() => setSidebarOpen((open) => !open)} />
+        <Header
+          onMenuToggle={() => setSidebarOpen((open) => !open)}
+          isOpen={sidebarOpen}
+        />
         <div className="flex-1 overflow-y-auto bg-gray-50">
           {children}
           <Outlet />

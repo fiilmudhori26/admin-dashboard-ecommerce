@@ -22,7 +22,7 @@ const STATUS_BADGE = {
  * @param {Function} props.onFilter - (value) => void, called on filter input change
  * @param {Function} props.onSearch - (query) => void, called on search input change
  */
-export default function DataTable({ columns = [], data = [], onSort, onFilter, onSearch }) {
+export default function DataTable({ columns = [], data = [], loading = false, onSort, onFilter, onSearch }) {
   const [page, setPage] = useState(1)
 
   const totalPages = useMemo(() => Math.max(1, Math.ceil(data.length / PAGE_SIZE)), [data.length])
@@ -112,13 +112,23 @@ export default function DataTable({ columns = [], data = [], onSort, onFilter, o
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200">
-            {pageData.length === 0 ? (
+            {loading ? (
+              [...Array(3)].map((_, index) => (
+                <tr key={index} className="animate-pulse">
+                  {columns.map((column) => (
+                    <td key={column.key} className="px-4 py-3">
+                      <div className="h-4 bg-gray-200 rounded-md w-1/2" />
+                    </td>
+                  ))}
+                </tr>
+              ))
+            ) : pageData.length === 0 ? (
               <tr>
                 <td
                   colSpan={columns.length}
                   className="px-4 py-8 text-center text-sm text-gray-500"
                 >
-                  Tidak ada data
+                  Tidak ada data ditemukan
                 </td>
               </tr>
             ) : (

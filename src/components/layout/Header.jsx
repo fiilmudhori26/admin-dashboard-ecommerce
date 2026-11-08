@@ -1,6 +1,6 @@
 import { ChevronDown, Menu, User } from 'lucide-react'
 
-export default function Header({ onMenuToggle }) {
+export default function Header({ onMenuToggle, isOpen = false }) {
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 lg:px-6 shrink-0"
@@ -10,7 +10,7 @@ export default function Header({ onMenuToggle }) {
         onClick={onMenuToggle}
         className="lg:hidden p-2 text-gray-600 hover:text-gray-900"
         aria-label="Toggle navigation"
-        aria-expanded="false"
+        aria-expanded={isOpen}
       >
         <Menu size={20} strokeWidth={2} />
       </button>

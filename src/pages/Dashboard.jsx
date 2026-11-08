@@ -13,7 +13,7 @@ import RevenueChart from '../components/charts/RevenueChart.jsx'
  */
 export default function Dashboard() {
   // Aggregate order totals per calendar month (YYYY-MM -> total), oldest first.
-  const monthlyTotals = orders.reduce((acc, order) => {
+  const monthlyTotals = (orders ?? []).reduce((acc, order) => {
     const month = order.date.slice(0, 7)
     acc[month] = (acc[month] || 0) + order.total
     return acc
@@ -39,9 +39,15 @@ export default function Dashboard() {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((stat) => (
-          <StatCard key={stat.label} {...stat} />
-        ))}
+        {stats?.length > 0 ? (
+          stats.map((stat) => (
+            <StatCard key={stat.label} {...stat} />
+          ))
+        ) : (
+          <div className="col-span-full p-8 text-center text-sm text-gray-500">
+            Tidak ada data ditemukan
+          </div>
+        )}
       </div>
 
       <section>

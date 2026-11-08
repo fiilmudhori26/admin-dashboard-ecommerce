@@ -9,7 +9,7 @@ const NAV_ITEMS = [
   { label: 'Profil', path: '/profile', Icon: User },
 ]
 
-export default function Sidebar({ activePath = '/', onNavigate, open = false }) {
+export default function Sidebar({ activePath = '/', onNavigate, isOpen = false }) {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -27,7 +27,7 @@ export default function Sidebar({ activePath = '/', onNavigate, open = false }) 
       className={[
         'fixed inset-y-0 left-0 z-40 h-screen w-64 bg-white border-r border-gray-200',
         'flex flex-col transform transition-transform duration-300 ease-in-out',
-        open ? 'translate-x-0' : '-translate-x-full',
+        isOpen ? 'translate-x-0' : '-translate-x-full',
         'lg:translate-x-0',
       ].join(' ')}
       aria-label="Main navigation"

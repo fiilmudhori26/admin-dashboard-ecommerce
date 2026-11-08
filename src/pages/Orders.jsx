@@ -48,7 +48,7 @@ export default function Orders() {
 
       <DataTable
         columns={columns}
-        data={pageData}
+        data={pageData ?? []}
         onSort={handleSort}
         onFilter={setFilter}
         onSearch={setSearch}

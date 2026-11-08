@@ -62,7 +62,7 @@ export default function Products() {
 
       <DataTable
         columns={columns}
-        data={pageData}
+        data={pageData ?? []}
         onSort={handleSort}
         onFilter={setFilter}
         onSearch={setSearch}
