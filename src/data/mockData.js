@@ -217,7 +217,7 @@ export const products = [
 
 export const customers = [
   { id: "C001", name: "Budi Santoso", email: "budi.santoso@gmail.com", orders: 3, spent: 43672000, joined: "2023-01-15" },
-  { id: "C002", name: "Siti Rahayu", email: "siti.rahu@yahoo.co.id", orders: 2, spent: 15423000, joined: "2023-03-22" },
+  { id: "C002", name: "Siti Rahayu", email: "siti.rahayu@yahoo.co.id", orders: 2, spent: 15423000, joined: "2023-03-22" },
   { id: "C003", name: "Agus Setiawan", email: "agus.setiawan@outlook.com", orders: 1, spent: 900000, joined: "2023-05-10" },
   { id: "C004", name: "Dewi Lestari", email: "dewi.lestari@gmail.com", orders: 2, spent: 11997000, joined: "2023-07-18" },
   { id: "C005", name: "Rina Marlina", email: "rina.marlina@yahoo.com", orders: 1, spent: 450000, joined: "2023-09-05" },
@@ -233,6 +233,6 @@ export const customers = [
 export const stats = [
   { label: "Total Penjualan", value: "Rp 93.366.000", trend: "+12% this month", icon: "DollarSign" },
   { label: "Total Pesanan", value: "20", trend: "+8% vs last month", icon: "ShoppingCart" },
-  { label: "Produk Terjual", value: "50", trend: "+5% vs last month", icon: "Package" },
+  { label: "Produk Terjual", value: "51", trend: "+5% vs last month", icon: "Package" },
   { label: "Pelanggan Aktif", value: "12", trend: "+3 new this week", icon: "Users" },
 ];
