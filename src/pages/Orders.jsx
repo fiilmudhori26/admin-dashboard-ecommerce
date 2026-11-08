@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { orders } from '../data/mockData.js'
 import DataTable from '../components/ui/DataTable.jsx'
 import useTable from '../hooks/useTable.js'
@@ -17,6 +18,16 @@ export default function Orders() {
   const { pageData, setSort, setFilter, setSearch } = useTable({
     initialData: orders,
   })
+
+  // Local direction-toggle state. useTable.setSort expects
+  // { column: string|null, direction: 'asc'|'desc'|null }, not a bare column key.
+  const [sortDirection, setSortDirection] = useState(null) // 'asc' | 'desc' | null
+
+  const handleSort = (key) => {
+    const nextDir = sortDirection === null ? 'asc' : sortDirection === 'asc' ? 'desc' : null
+    setSortDirection(nextDir)
+    setSort({ column: key, direction: nextDir })
+  }
 
   const columns = [
     { key: 'id', label: 'ID' },
@@ -38,7 +49,7 @@ export default function Orders() {
       <DataTable
         columns={columns}
         data={pageData}
-        onSort={setSort}
+        onSort={handleSort}
         onFilter={setFilter}
         onSearch={setSearch}
       />

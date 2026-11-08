@@ -3,6 +3,15 @@ import { ArrowUpDown } from 'lucide-react'
 
 const PAGE_SIZE = 10
 
+// Status cell badge styling (order statuses from mockData).
+const STATUS_BADGE = {
+  Pending: 'bg-yellow-100 text-yellow-800',
+  Processing: 'bg-blue-100 text-blue-800',
+  Shipped: 'bg-indigo-100 text-indigo-800',
+  Delivered: 'bg-green-100 text-green-800',
+  Cancelled: 'bg-red-100 text-red-800',
+}
+
 /**
  * DataTable — a sortable, filterable, searchable, paginated table.
  *
@@ -118,11 +127,34 @@ export default function DataTable({ columns = [], data = [], onSort, onFilter, o
                   key={row.id != null ? row.id : String(row[columns[0]?.key ?? 'id'])}
                   className="hover:bg-gray-50 transition-colors"
                 >
-                  {columns.map((column) => (
-                    <td key={column.key} className="px-4 py-3 text-sm text-gray-700">
-                      {row[column.key] == null ? '-' : row[column.key]}
-                    </td>
-                  ))}
+                  {columns.map((column) => {
+                    const value = row[column.key]
+                    if (value == null) {
+                      return (
+                        <td key={column.key} className="px-4 py-3 text-sm text-gray-700">
+                          -
+                        </td>
+                      )
+                    }
+                    if (column.key === 'status') {
+                      return (
+                        <td key={column.key} className="px-4 py-3 text-sm text-gray-700">
+                          <span
+                            className={`inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ${
+                              STATUS_BADGE[value] ?? 'bg-gray-100 text-gray-600'
+                            }`}
+                          >
+                            {value}
+                          </span>
+                        </td>
+                      )
+                    }
+                    return (
+                      <td key={column.key} className="px-4 py-3 text-sm text-gray-700">
+                        {value}
+                      </td>
+                    )
+                  })}
                 </tr>
               ))
             )}
