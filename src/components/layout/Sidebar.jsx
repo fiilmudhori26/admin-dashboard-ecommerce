@@ -1,21 +1,26 @@
+import { useLocation, useNavigate } from 'react-router-dom'
 import { ChevronRight, LayoutDashboard, Package, ShoppingCart, Users, User } from 'lucide-react'
 
 const NAV_ITEMS = [
   { label: 'Dashboard', path: '/', Icon: LayoutDashboard },
-  { label: 'Pesanan', path: '/pesanan', Icon: ShoppingCart },
-  { label: 'Produk', path: '/produk', Icon: Package },
-  { label: 'Pelanggan', path: '/pelanggan', Icon: Users },
-  { label: 'Profil', path: '/profil', Icon: User },
+  { label: 'Pesanan', path: '/orders', Icon: ShoppingCart },
+  { label: 'Produk', path: '/products', Icon: Package },
+  { label: 'Pelanggan', path: '/customers', Icon: Users },
+  { label: 'Profil', path: '/profile', Icon: User },
 ]
 
 export default function Sidebar({ activePath = '/', onNavigate, open = false }) {
+  const navigate = useNavigate()
+  const location = useLocation()
+
   const handleNavigate = (path) => {
+    navigate(path)
     if (typeof onNavigate === 'function') {
       onNavigate(path)
     }
   }
 
-  const isActive = (path) => activePath === path
+  const isActive = (path) => location.pathname === path
 
   return (
     <aside
