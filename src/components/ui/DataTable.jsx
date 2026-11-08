@@ -17,7 +17,7 @@ const STATUS_BADGE = {
  *
  * @param {Object} props
  * @param {Array} props.columns - [{ key, label }]
- * @param {Array} props.data - Row data (already filtered/sorted by the consumer, e.g. useTable)
+ * @param {Array} props.data - Row data (full filtered/sorted set; DataTable owns pagination)
  * @param {Function} props.onSort - (columnKey) => void, called on header click
  * @param {Function} props.onFilter - (value) => void, called on filter input change
  * @param {Function} props.onSearch - (query) => void, called on search input change
@@ -69,23 +69,25 @@ export default function DataTable({ columns = [], data = [], loading = false, on
       <div className="border-b border-gray-200 bg-gray-50 px-4 py-3 sm:flex sm:flex-col sm:items-start sm:justify-between gap-3 lg:flex-row lg:items-center">
         <div className="flex flex-col sm:flex-row gap-3 sm:items-center">
           <div className="relative w-full sm:w-64">
-            <span className="absolute left-2.5 top-2.5 text-gray-400 text-sm">
+            <span className="absolute left-2.5 top-2.5 text-gray-400 text-sm" aria-hidden="true">
               🔍
             </span>
             <input
               type="search"
               placeholder="Cari data..."
+              aria-label="Cari data"
               className="pl-8 pr-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none block w-full"
               onChange={handleSearch}
             />
           </div>
           <div className="relative w-full sm:w-64">
-            <span className="absolute left-2.5 top-2.5 text-gray-400 text-sm">
+            <span className="absolute left-2.5 top-2.5 text-gray-400 text-sm" aria-hidden="true">
               🔽
             </span>
             <input
               type="text"
               placeholder="Filter..."
+              aria-label="Filter"
               className="pl-8 pr-3 py-1.5 text-sm border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none block w-full"
               onChange={handleFilter}
             />
@@ -104,6 +106,7 @@ export default function DataTable({ columns = [], data = [], loading = false, on
                   onClick={() => handleSort(column.key)}
                   role="button"
                   tabIndex={0}
+                  aria-sort="none"
                 >
                   {column.label}
                   <ArrowUpDown className="ml-1 w-3 h-3 text-gray-400 flex-shrink-0" />
@@ -132,9 +135,9 @@ export default function DataTable({ columns = [], data = [], loading = false, on
                 </td>
               </tr>
             ) : (
-              pageData.map((row) => (
+              pageData.map((row, rowIndex) => (
                 <tr
-                  key={row.id != null ? row.id : String(row[columns[0]?.key ?? 'id'])}
+                  key={row.id != null ? row.id : `row-${rowIndex}`}
                   className="hover:bg-gray-50 transition-colors"
                 >
                   {columns.map((column) => {

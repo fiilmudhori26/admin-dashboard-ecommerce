@@ -15,7 +15,7 @@ import useTable from '../hooks/useTable.js'
  * @returns {import('react').JSX.Element}
  */
 export default function Customers() {
-  const { pageData, setSort, setFilter, setSearch } = useTable({
+  const { sortedData, setSort, setFilter, setSearch } = useTable({
     initialData: customers,
   })
 
@@ -64,7 +64,7 @@ export default function Customers() {
 
       <DataTable
         columns={columns}
-        data={pageData ?? []}
+        data={sortedData ?? []}
         onSort={handleSort}
         onFilter={setFilter}
         onSearch={setSearch}

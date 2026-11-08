@@ -3,13 +3,12 @@ import { useState } from 'react'
 import Header from './Header'
 import Sidebar from './Sidebar'
 
-export default function Layout({ children }) {
+export default function Layout() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [activePath, setActivePath] = useState('/')
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <Sidebar activePath={activePath} onNavigate={setActivePath} isOpen={sidebarOpen} />
+      <Sidebar onClose={() => setSidebarOpen(false)} isOpen={sidebarOpen} />
 
       {sidebarOpen && (
         <div
@@ -25,7 +24,6 @@ export default function Layout({ children }) {
           isOpen={sidebarOpen}
         />
         <div className="flex-1 overflow-y-auto bg-gray-50">
-          {children}
           <Outlet />
         </div>
       </main>

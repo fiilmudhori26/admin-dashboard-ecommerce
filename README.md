@@ -52,7 +52,7 @@ npm run dev
 npm run test
 ```
 
-> Note: `npm run test` runs Vitest. If the `test` script is not yet registered in `package.json`, run `npx vitest run` instead.
+> Note: `npm run test` runs Vitest via the `test` script registered in `package.json`.
 
 ## How to run
 

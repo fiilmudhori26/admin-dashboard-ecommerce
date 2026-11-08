@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import { ChevronRight, LayoutDashboard, Package, ShoppingCart, Users, User } from 'lucide-react'
 
 const NAV_ITEMS = [
@@ -9,14 +9,12 @@ const NAV_ITEMS = [
   { label: 'Profil', path: '/profile', Icon: User },
 ]
 
-export default function Sidebar({ activePath = '/', onNavigate, isOpen = false }) {
-  const navigate = useNavigate()
+export default function Sidebar({ onClose, isOpen = false }) {
   const location = useLocation()
 
-  const handleNavigate = (path) => {
-    navigate(path)
-    if (typeof onNavigate === 'function') {
-      onNavigate(path)
+  const handleClose = () => {
+    if (typeof onClose === 'function') {
+      onClose()
     }
   }
 
@@ -41,12 +39,12 @@ export default function Sidebar({ activePath = '/', onNavigate, isOpen = false }
             const active = isActive(item.path)
             return (
               <li key={item.path}>
-                <button
-                  type="button"
-                  onClick={() => handleNavigate(item.path)}
-                  className={[
+                <NavLink
+                  to={item.path}
+                  onClick={handleClose}
+                  className={({ isActive: linkActive }) => [
                     'flex items-center gap-3 w-full px-3 py-2 text-sm rounded-lg shrink-0 transition-colors',
-                    active
+                    linkActive
                       ? 'bg-indigo-100 text-indigo-700'
                       : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900',
                   ].join(' ')}
@@ -54,7 +52,7 @@ export default function Sidebar({ activePath = '/', onNavigate, isOpen = false }
                   <item.Icon className="w-5 h-5 flex-shrink-0" />
                   <span className="font-medium">{item.label}</span>
                   <ChevronRight className="ml-auto w-4 h-4 flex-shrink-0 text-gray-400" />
-                </button>
+                </NavLink>
               </li>
             )
           })}

@@ -76,7 +76,7 @@ const LUCIDE_ICONS = {
  * @param {string} props.icon - Lucide icon name (e.g. "DollarSign")
  */
 export default function StatCard({ label, value, trend, icon }) {
-  const Icon = LUCIDE_ICONS[icon]
+  const Icon = LUCIDE_ICONS[icon] ?? LayoutDashboard
 
   const isUp = trend ? String(trend).trimStart().startsWith('+') : false
   const isDown = trend ? String(trend).trimStart().startsWith('-') : false

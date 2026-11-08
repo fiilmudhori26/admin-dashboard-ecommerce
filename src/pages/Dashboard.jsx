@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { orders, stats } from '../data/mockData.js'
 import StatCard from '../components/ui/StatCard.jsx'
 import RevenueChart from '../components/charts/RevenueChart.jsx'
@@ -29,6 +30,10 @@ export default function Dashboard() {
       value,
     }))
 
+  useEffect(() => {
+    document.title = 'Dashboard'
+  }, [])
+
   return (
     <div className="space-y-6 p-4 sm:p-6">
       <div>
@@ -40,8 +45,8 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats?.length > 0 ? (
-          stats.map((stat) => (
-            <StatCard key={stat.label} {...stat} />
+          stats.map((stat, index) => (
+            <StatCard key={index} {...stat} />
           ))
         ) : (
           <div className="col-span-full p-8 text-center text-sm text-gray-500">
