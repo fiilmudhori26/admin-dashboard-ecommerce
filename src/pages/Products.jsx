@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { products } from '../data/mockData.js'
 import DataTable from '../components/ui/DataTable.jsx'
 import useTable from '../hooks/useTable.js'
@@ -19,15 +19,28 @@ export default function Products() {
     initialData: products,
   })
 
-  // Local direction-toggle state. useTable.setSort expects
+  // Local sort state. useTable.setSort expects
   // { column: string|null, direction: 'asc'|'desc'|null }, not a bare column key.
-  const [sortDirection, setSortDirection] = useState(null) // 'asc' | 'desc' | null
+  const [sortColumn, setSortColumn] = useState(null)
+  const [sortDirection, setSortDirection] = useState(null)
 
   const handleSort = (key) => {
-    const nextDir = sortDirection === null ? 'asc' : sortDirection === 'asc' ? 'desc' : null
+    let nextDir
+    if (key !== sortColumn) {
+      // New column: always start at asc.
+      nextDir = 'asc'
+    } else {
+      // Same column: cycle null → asc → desc → null.
+      nextDir = sortDirection === null ? 'asc' : sortDirection === 'asc' ? 'desc' : null
+    }
+    setSortColumn(key)
     setSortDirection(nextDir)
     setSort({ column: key, direction: nextDir })
   }
+
+  useEffect(() => {
+    document.title = 'Produk'
+  }, [])
 
   const columns = [
     { key: 'id', label: 'ID' },
